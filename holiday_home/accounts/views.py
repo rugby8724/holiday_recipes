@@ -8,7 +8,7 @@ from . import forms
 
 class Signup(CreateView):
     form_class = forms.UserCreationForm
-    success_url = reverse_lazy('holiday:home')
+    success_url = reverse_lazy('home')
     template_name = 'accounts/signup.html'
 
     #Will auto sign in user after they create an account
