@@ -6,6 +6,25 @@ from django.utils.text import slugify
 User = get_user_model()
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=177, unique=True)
+    slug = models.SlugField(max_length=177, unique=True)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='recipe_categories', blank=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+
 class Recipe(models.Model):
     user = models.ForeignKey(User, related_name='recipe', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -14,6 +33,7 @@ class Recipe(models.Model):
     instructions = models.TextField(blank=False)
     about = models.TextField(blank=True, default='')
     image = models.ImageField(upload_to='recipes', blank=True)
+    category = models.ForeignKey(Category, related_name='categories', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
