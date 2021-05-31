@@ -28,6 +28,7 @@ class Category(models.Model):
 class Recipe(models.Model):
     user = models.ForeignKey(User, related_name='recipe', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=100)
     slug = models.SlugField(allow_unicode=True)
     instructions = models.TextField(blank=False)
