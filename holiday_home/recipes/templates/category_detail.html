@@ -1,0 +1,19 @@
+{% extends 'base.html %}
+{% load staticfiles %}
+
+{% block title %}{{category.name}}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="text-center">{{ category.name }}</h2>
+
+    <div class="row">
+        {% for recipe in category.recipe.all %}
+        <div>
+            <a href="{% url 'recipes:single_recipe' slug=recipe.slug pk=recipe.pk %}">{{recipe.name}}</a>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

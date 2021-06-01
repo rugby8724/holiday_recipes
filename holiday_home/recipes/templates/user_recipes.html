@@ -1,0 +1,19 @@
+{% extends 'base.html %}
+{% load staticfiles %}
+
+{% block title %}{{user_recipes.username}}{% endblock %}
+
+{% block content %}
+<div>
+    <div class="text-center">
+        <h2>{{user_recipes.username}}'s Recipes</h2>
+    </div>
+
+    {% for recipe in recipes %}
+    <div>
+        <a href="{% url 'recipes:single_recipe' slug=recipe.slug pk=recipe.pk %}">{{recipe.name}}</a>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

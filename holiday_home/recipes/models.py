@@ -26,7 +26,7 @@ class Category(models.Model):
 
 
 class Recipe(models.Model):
-    user = models.ForeignKey(User, related_name='recipe', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='recipes', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=100)
@@ -44,6 +44,15 @@ class Recipe(models.Model):
         super(Recipe, self).save(*args, **kwargs)
 
     # add get_absolute_url
+    def get_absolute_url(self):
+        return reverse('recipes:single',
+                       kwargs={
+                           'username': self.user.username,
+                           'pk': self.pk
+                       })
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class RecipeIngredients(models.Model):

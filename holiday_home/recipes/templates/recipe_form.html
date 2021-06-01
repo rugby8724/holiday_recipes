@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block title %}Add Recipe{% endblock %}
+
+{% block content %}
+<h3>Add a new Recipe</h3>
+<form id="recipeForm" action="#">
+    {% csrf_token %}
+    {% boostrap_form form %}
+    <input class="btn btn-primary btn-large" type="submit" value="Recipe">
+</form>
+{% endblock %}

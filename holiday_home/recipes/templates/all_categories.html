@@ -1,0 +1,23 @@
+{% extends 'base.html %}
+{% load staticfiles %}
+
+{% block title %}Recipe Categories{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2>Select a Recipe Category</h2>
+    
+    <div class="list-categories">
+        {% for category in object.list %}
+        <a href="{% url 'recipes:single_cat' slug=category.slug %}">{{ category.name }}</a>
+        {% if category.image %}
+        <img src="category.image.url" alt="{{category.name}}">
+        {% endif %}
+        {% endfor %}
+        
+    </div>
+    
+    
+
+</div>
+{% endblock %}
