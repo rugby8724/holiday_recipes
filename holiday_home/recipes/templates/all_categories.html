@@ -1,5 +1,5 @@
-{% extends 'base.html %}
-{% load staticfiles %}
+{% extends 'base.html' %}
+{% load static%}
 
 {% block title %}Recipe Categories{% endblock %}
 
@@ -8,8 +8,8 @@
     <h2>Select a Recipe Category</h2>
     
     <div class="list-categories">
-        {% for category in object.list %}
-        <a href="{% url 'recipes:single_cat' slug=category.slug %}">{{ category.name }}</a>
+        {% for category in object_list %}
+        <a href="{% url 'recipes:single_category' slug=category.slug %}">{{ category.name }}</a>
         {% if category.image %}
         <img src="category.image.url" alt="{{category.name}}">
         {% endif %}
