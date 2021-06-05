@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 
 from .models import Category, Recipe, RecipeIngredients
+from .forms import RecipeForm, RecipeIngredientsFormSet
 
 User = get_user_model()
 
@@ -54,14 +55,26 @@ class UserRecipeList(generic.ListView):
 
 class CreateRecipe(LoginRequiredMixin, generic.CreateView):
 
-    fields = ('category', 'title', 'name', 'amount', 'instructions', 'about', 'image')
-    model = Recipe
+    form_class = RecipeForm
     template_name = 'recipe_form.html'
 
+    def get_context_data(self, **kwargs):
+        data = super(CreateRecipe, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['ingredients'] = RecipeIngredientsFormSet(self.request.POST)
+        else:
+            data['ingredients'] = RecipeIngredientsFormSet()
+        return data
+
     def from_valid(self, form):
+        context = self.get_context_data()
+        ingredients = context['ingredients']
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
+        if ingredients.is_valid():
+            ingredients.instance = self.object
+            ingredients.save()
         return super().form_valid(form)
 
 
