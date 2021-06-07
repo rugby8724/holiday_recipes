@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load bootstrap5 %}
+
 
 {% block title %}Add Recipe{% endblock %}
 
@@ -7,7 +7,9 @@
 <h3>Add a new Recipe</h3>
 <form id="recipeForm" action="#">
     {% csrf_token %}
-    {% bootstrap_form form %}
+    {{ form.as_p }}
+    <h2>Ingredients</h2>
+    {{ ingredients.as_p }}
     <input class="btn btn-primary btn-large" type="submit" value="Recipe">
 </form>
 {% endblock %}
