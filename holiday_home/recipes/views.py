@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 
 from .models import Category, Recipe, RecipeIngredients
-from .forms import RecipeForm, RecipeIngredientsFormSet
+from .forms import *
 
 User = get_user_model()
 
@@ -59,7 +59,7 @@ class CreateRecipe(LoginRequiredMixin, generic.CreateView):
     template_name = 'recipe_form.html'
 
     def get_context_data(self, **kwargs):
-        data = super(CreateRecipe, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         if self.request.POST:
             data['ingredients'] = RecipeIngredientsFormSet(self.request.POST)
         else:

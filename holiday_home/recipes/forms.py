@@ -4,6 +4,7 @@ from django.forms.models import inlineformset_factory
 
 
 class RecipeIngredientsForm(forms.ModelForm):
+
     class Meta:
         model = models.RecipeIngredients
         exclude = ()
@@ -16,10 +17,8 @@ RecipeIngredientsFormSet = inlineformset_factory(
 
 class RecipeForm(forms.ModelForm):
     class Meta:
-        fields = ['category', 'title','instructions', 'about', 'image']
         model = models.Recipe
-
-
+        fields = ['title', 'category']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
