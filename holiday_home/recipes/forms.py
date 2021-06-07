@@ -18,7 +18,7 @@ RecipeIngredientsFormSet = inlineformset_factory(
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = models.Recipe
-        fields = ['title', 'category']
+        fields = ['category', 'title', 'image', 'instructions', 'about']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
